@@ -1,26 +1,35 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app">
+    <div class="status">{{ status }}</div>
+    <button>Reset</button>
+    <template v-for="(row, rowIndex) in board" :key="rowIndex">
+      <div class="row">
+        <button v-for="(col, colIndex) in board[rowIndex]" class="square" style="width:40px;height:40px;"
+          :key="`${rowIndex}-${colIndex}`" @click="$event => handleClick(rowIndex, colIndex)">{{ board[rowIndex][colIndex]
+          }}</button>
+      </div>
+    </template>
+  </div>
 </template>
 
+
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  name: "App",
+  data() {
+    return {
+      status: 'Next player: X',
+      board: [
+        [null, null, null],
+        [null, null, null],
+        [null, null, null]
+      ]
+    };
+  },
+  methods: {
+    handleClick(row, col) {
+      console.log(row, col)
+    }
   }
-}
+};
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
